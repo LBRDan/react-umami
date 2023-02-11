@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  cache-and-install:
+  cache-and-install-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -45,10 +45,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-  test:
-    needs: cache-and-install
-    runs-on: ubuntu-latest
-
-    steps:
-    - run: pnpm run test:ci
+      - name: Run tests
+        run: pnpm run test:ci
 
