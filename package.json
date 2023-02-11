@@ -12,6 +12,10 @@
   "repository": "https://github.com/LBRDan/react-umami.git",
   "author": "Daniele Lubrano <lubrano.daniele@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "^16.18.0"
+  },
+  "packageManager": "pnpm@7.27.0",
   "exports": {
     ".": {
       "import": "./dist/react-umami.js",
