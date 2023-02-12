@@ -27,6 +27,7 @@ export default function UmamiProvider({
   useCache = false,
   domains = [],
   getCurrentUrl,
+  respectDoNotTrack = true,
   ...props
 }: React.PropsWithChildren<UmamiProviderProps>) {
   const windowInfo = useMemo(() => {
@@ -35,32 +36,28 @@ export default function UmamiProvider({
         screen: `SSR`,
         language: "",
         hostname: "",
-        pathname: "",
-        search: "",
       };
     }
     const {
       screen: { width, height },
       navigator: { language },
-      location: { hostname, pathname, search },
+      location: { hostname },
     } = window;
     return {
       screen: `${width}x${height}`,
       language,
       hostname,
-      pathname,
-      search,
     };
   }, []);
 
   const mainCanTrack = useCallback(
     () =>
-      (props.respectDoNotTrack ? !doNotTrack() : true) &&
+      (respectDoNotTrack ? !doNotTrack() : true) &&
       (domains.length == 0 ||
         (domains.length > 0 && domains.includes(windowInfo.hostname))) &&
       (!localStorage ||
         (localStorage && !localStorage.getItem(localStorageMainTurnoffKey))),
-    [props.respectDoNotTrack, windowInfo.hostname, domains]
+    [respectDoNotTrack, windowInfo.hostname, domains]
   );
 
   const getEventPayloadFields = () => {
