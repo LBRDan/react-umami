@@ -3,11 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   '@testing-library/react-hooks': ^8.0.1
   '@types/node': ^18.13.0
-  '@types/react': ^18.0.27
+  '@types/react': ^18.0.28
   '@vitejs/plugin-react': ^3.1.0
   '@vitest/coverage-c8': ^0.28.4
   jsdom: ^21.1.0
   react: ^18.2.0
+  react-dom: ^18.2.0
   react-test-renderer: ^18.2.0
   typescript: ^4.9.5
   vite: ^4.1.1
@@ -15,13 +16,14 @@ specifiers:
   vitest: ^0.28.4
 
 devDependencies:
-  '@testing-library/react-hooks': 8.0.1_jop7kglnvv463n2bcmmb3rjkbu
+  '@testing-library/react-hooks': 8.0.1_4dieuo5phzh2ncaz6cfjnl37cm
   '@types/node': 18.13.0
-  '@types/react': 18.0.27
+  '@types/react': 18.0.28
   '@vitejs/plugin-react': 3.1.0_vite@4.1.1
   '@vitest/coverage-c8': 0.28.4_jsdom@21.1.0
   jsdom: 21.1.0
   react: 18.2.0
+  react-dom: 18.2.0_react@18.2.0
   react-test-renderer: 18.2.0_react@18.2.0
   typescript: 4.9.5
   vite: 4.1.1_@types+node@18.13.0
@@ -621,7 +623,7 @@ packages:
       string-argv: 0.3.1
     dev: true
 
-  /@testing-library/react-hooks/8.0.1_jop7kglnvv463n2bcmmb3rjkbu:
+  /@testing-library/react-hooks/8.0.1_4dieuo5phzh2ncaz6cfjnl37cm:
     resolution: {integrity: sha512-Aqhl2IVmLt8IovEVarNDFuJDVWVvhnr9/GCU6UUnrYXwgDFF9h2L2o2P9KBni1AST5sT6riAyoukFLyjQUgD/g==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -638,8 +640,9 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.20.13
-      '@types/react': 18.0.27
+      '@types/react': 18.0.28
       react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
       react-error-boundary: 3.1.4_react@18.2.0
       react-test-renderer: 18.2.0_react@18.2.0
     dev: true
@@ -688,8 +691,8 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react/18.0.27:
-    resolution: {integrity: sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==}
+  /@types/react/18.0.28:
+    resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
@@ -1830,6 +1833,16 @@ packages:
 
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+    dev: true
+
+  /react-dom/18.2.0_react@18.2.0:
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      loose-envify: 1.4.0
+      react: 18.2.0
+      scheduler: 0.23.0
     dev: true
 
   /react-error-boundary/3.1.4_react@18.2.0:
