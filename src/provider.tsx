@@ -87,9 +87,9 @@ export default function UmamiProvider({
         headers = { ["x-umami-cache"]: sessionStorage.getItem(cacheKey)! };
 
       return post(`${hostUrl}/api/collect`, data, headers).then((response) => {
-        if (useCache && sessionStorage)
-          sessionStorage.setItem(cacheKey, response);
-        return response;
+        if (useCache && sessionStorage && response.body)
+          sessionStorage.setItem(cacheKey, response.body);
+        return response.body;
       });
     },
     [hostUrl, mainCanTrack, useCache]

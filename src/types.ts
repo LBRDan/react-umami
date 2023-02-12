@@ -14,7 +14,10 @@ export interface UmamiContextValue {
   hostUrl: string;
   canTrack: () => boolean;
   track:
-    | ((data: UmamiEvents, forceTrack?: boolean) => ReturnType<typeof post>)
+    | ((
+        data: UmamiEvents,
+        forceTrack?: boolean
+      ) => Promise<Awaited<ReturnType<typeof post>>["body"] | "NO_TRACK">)
     | (() => void);
 }
 
