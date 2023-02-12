@@ -1,6 +1,7 @@
 {
-  "name": "react-umami",
+  "name": "@lbrdan/react-umami",
   "version": "0.0.1",
+  "description": "Umami client for React, hooks only",
   "type": "module",
   "files": [
     "dist"
