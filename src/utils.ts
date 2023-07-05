@@ -1,4 +1,4 @@
-import { UmamiEvents } from "./types";
+import { UmamiTrackEvent } from "./types";
 
 export const doNotTrack = () => {
   // @ts-ignore
@@ -28,8 +28,8 @@ export function removeTrailingSlash(url: string) {
 
 export function post(
   url: string,
-  data: UmamiEvents,
-  headers: Record<string, string> = {}
+  data: UmamiTrackEvent,
+  headers?: Record<string, string>
 ): Promise<{ status: number; statusText: string; body?: string }> {
   if ("fetch" in window) {
     return fetch(url, {
