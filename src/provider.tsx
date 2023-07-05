@@ -1,8 +1,12 @@
 import { useCallback, useMemo } from "react";
-import { cacheKey, localStorageMainTurnoffKey } from "./const";
+import {
+  cacheKey,
+  localStorageMainTurnoffKey,
+  umamiApiEventIngestionPath,
+} from "./const";
 import { UmamiContext } from "./context";
-import { UmamiEvents } from "./types";
 import { doNotTrack, post, removeTrailingSlash } from "./utils";
+import { UmamiTrackEvent, UmamiTrackEventPayload } from "./types";
 
 interface UmamiProviderProps {
   websiteId: string;
@@ -36,17 +40,23 @@ export default function UmamiProvider({
         screen: `SSR`,
         language: "",
         hostname: "",
+        pathname: "",
+        search: "",
+        title: "",
       };
     }
     const {
       screen: { width, height },
       navigator: { language },
-      location: { hostname },
+      location: { hostname, pathname, search },
     } = window;
     return {
       screen: `${width}x${height}`,
       language,
       hostname,
+      pathname,
+      search,
+      title: document.title,
     };
   }, []);
 
@@ -60,14 +70,15 @@ export default function UmamiProvider({
     [respectDoNotTrack, windowInfo.hostname, domains]
   );
 
-  const getEventPayloadFields = () => {
-    const { hostname, language, screen } = windowInfo;
+  const getEventPayloadFields = (): UmamiTrackEventPayload => {
+    const { hostname, language, screen, title } = windowInfo;
     return {
       website: websiteId,
       hostname,
       language,
       screen,
       url: getCurrentUrl(),
+      title,
     };
   };
 
@@ -76,14 +87,18 @@ export default function UmamiProvider({
   }, [props.hostUrl]);
 
   const track = useCallback(
-    async (data: UmamiEvents, forceTrack: boolean = false) => {
+    async (data: UmamiTrackEvent, forceTrack: boolean = false) => {
       if (!mainCanTrack() && !forceTrack) return "NO_TRACK";
 
       let headers: Record<string, string> = {};
       if (useCache && sessionStorage.getItem(cacheKey))
         headers = { ["x-umami-cache"]: sessionStorage.getItem(cacheKey)! };
 
-      return post(`${hostUrl}/api/collect`, data, headers).then((response) => {
+      return post(
+        `${hostUrl}${umamiApiEventIngestionPath}`,
+        data,
+        headers
+      ).then((response) => {
         if (useCache && sessionStorage && response.body)
           sessionStorage.setItem(cacheKey, response.body);
         return response.body;

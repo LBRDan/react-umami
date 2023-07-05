@@ -1,40 +1,33 @@
 import { post } from "./utils";
 
-export type EventsPayloadCommonFields<T = {}> = {
-  website: string;
-  hostname: string;
-  language: string;
-  screen: string;
-  url: string;
-} & T;
-
 export interface UmamiContextValue {
   websiteId: string;
-  getEventPayloadFields: () => EventsPayloadCommonFields | null;
+  getEventPayloadFields: () => UmamiTrackEventPayload | null;
   hostUrl: string;
   canTrack: () => boolean;
   track:
     | ((
-        data: UmamiEvents,
+        data: UmamiTrackEvent,
         forceTrack?: boolean
       ) => Promise<Awaited<ReturnType<typeof post>>["body"] | "NO_TRACK">)
     | (() => void);
 }
 
-export interface UmamiPageViewEvent {
-  payload: EventsPayloadCommonFields<{
-    referrer?: string;
-    url: string;
-  }>;
-  type: "pageview";
-}
+export type UmamiTrackEventPayload = {
+  hostname: string;
+  language: string;
+  referrer?: string;
+  screen: string;
+  title: string;
+  url: string;
+  website: string;
+  name?: string;
+  data?: UmamiCustomEventData;
+};
 
-export type UmamiTrackedEvent = {
-  payload: EventsPayloadCommonFields<{
-    event_name: string;
-    event_value: string;
-  }>;
+export type UmamiTrackEvent = {
+  payload: UmamiTrackEventPayload;
   type: "event";
 };
 
-export type UmamiEvents = UmamiPageViewEvent | UmamiTrackedEvent;
+export type UmamiCustomEventData = Record<string, string | number | boolean>;
