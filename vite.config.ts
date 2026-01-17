@@ -1,9 +1,7 @@
-/// <reference types="vitest" />
 /// <reference types="vite/client" />
 
 import { resolve } from "path";
 import { defineConfig } from "vite";
-import { configDefaults } from "vitest/config";
 
 import dts from "vite-plugin-dts";
 import react from "@vitejs/plugin-react";
@@ -32,9 +30,4 @@ export default defineConfig({
     },
   },
   plugins: [react(), dts({ rollupTypes: true })],
-  test: {
-    globals: true,
-    environment: "jsdom",
-    exclude: [...configDefaults.exclude, "**.test.utils.ts"],
-  },
 });

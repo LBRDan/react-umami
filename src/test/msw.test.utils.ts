@@ -1,16 +1,16 @@
 import { setupServer } from "msw/node";
-import { rest } from "msw";
+import { http } from "msw";
 import { umamiApiEventIngestionPath } from "../const";
 
 export const mswHostedUrl = "https://react-umami.umami.is";
 
-const restHandlers = [
-  rest.post(`${mswHostedUrl}${umamiApiEventIngestionPath}`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.text("TRACKED"));
+const httpHandlers = [
+  http.post(`${mswHostedUrl}${umamiApiEventIngestionPath}`, () => {
+    return new Response("TRACKED", { status: 200 });
   }),
 ];
 
-export const server = setupServer(...restHandlers);
+export const server = setupServer(...httpHandlers);
 
 function useServer() {
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));

@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, waitFor } from "@testing-library/react";
 import { useUmamiPageTrack } from "./hooks";
 import { UmamiContextValue } from "./types";
 import { ReactNode } from "react";
@@ -35,14 +35,14 @@ describe("useUmamiPageTrack", () => {
         {children}
       </UmamiContext.Provider>
     );
-    const { result, waitForNextUpdate, waitFor, rerender } = renderHook(
+    renderHook(
       () => useUmamiPageTrack({ pageUrl: "/" }),
       {
         wrapper,
       }
     );
 
-    await waitFor(() =>
+    await waitFor(() => {
       expect(trackMock.mock.lastCall![0]).toEqual({
         payload: {
           title: "My Site",
@@ -54,8 +54,8 @@ describe("useUmamiPageTrack", () => {
           referrer: "",
         },
         type: "event",
-      })
-    );
+      });
+    });
   });
 
   test("should track event on normal consent using default provider", async () => {
@@ -75,7 +75,7 @@ describe("useUmamiPageTrack", () => {
       </UmamiProvider>
     );
 
-    const { result, waitForNextUpdate, waitFor, rerender } = renderHook(
+    const { result } = renderHook(
       () => useUmamiPageTrack({ pageUrl: "/" }, true),
       {
         wrapper,
