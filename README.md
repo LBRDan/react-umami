@@ -38,9 +38,11 @@ This lib is still WIP, no package is out on NPM yet. There is some work left to 
 
 ## Background
 
-I was trying to gather some analytics for my NextJS (v12 - `pages` folder) personal site, especially about the interactions with my resumee. I started thinking about Google Analitycs but I also wanted to keep this data for me, and granting the minimum privacy impact to the visitors.
+I was trying to gather some analytics for my NextJS (v12 - `pages` folder or v13 - client components with some quirks) personal site, especially about the interactions with my resumee. I started thinking about Google Analitycs but I also wanted to keep this data for me, and granting the minimum privacy impact to the visitors.
 
-Then I found Umami.is opting to self-host it on my home server (or better said, a Raspberry Pi 3), but I realized that umami provides it's own library.
+I found [Umami](https://umami.is/) and it seemed to be a good fit for my needs. It's a self-hosted analytics tool, with a very simple and clean interface. It's also open source, free to use with self hosting capability. I was sold.
+
+Then I opted to self host Umami in my home server (or better said, a Raspberry Pi 3), but I realized that umami provides it's own library.
 I didn't want to let some adblocker or something preventing me from using those service, and I needed something that better integrates with NextJS.
 
 ### Other packages
@@ -63,13 +65,13 @@ This package is available via [NPM](https://www.npmjs.com/package/@parcellab/rea
 
 ```sh
 # NPM
-npm i react-umami
+npm i @lbrdan/react-umami
 
 # Yarn / Yarn Berry
-yarn add react-umami
+yarn add @lbrdan/react-umami
 
 # PNPM
-pnpm add react-umami
+pnpm add @lbrdan/react-umami
 ```
 
 ## Usage
@@ -202,7 +204,7 @@ const PageTrackerRR: FC<{}> = () => {
 export default App;
 ```
 
-# API (WIP)
+# API
 
 # Contributing
 

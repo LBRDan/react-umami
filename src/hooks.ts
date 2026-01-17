@@ -1,12 +1,12 @@
 import { useContext, useCallback, useEffect } from "react";
 import { UmamiContext } from "./context";
-import { UmamiTrackedEvent, UmamiPageViewEvent } from "./types";
+import { UmamiCustomEventData, UmamiTrackEvent } from "./types";
 
 export function useUmamiEventTrack() {
   const umamiCtx = useContext(UmamiContext);
   const trackEvent = (
-    eventValue: string,
-    eventType: string = "custom",
+    eventName: string = "custom",
+    eventValue?: UmamiCustomEventData,
     forceTrack: boolean = false
   ) => {
     try {
@@ -29,14 +29,31 @@ export function useUmamiEventTrack() {
 			*/
 
       const commonFields = umamiCtx.getEventPayloadFields();
-      if (!commonFields) {
+      if (commonFields === null) {
         throw new Error("Not initialized");
       }
-      const event: UmamiTrackedEvent = {
+      /*
+				EVENT
+
+				{
+				payload: {
+					event_name: "click",
+					event_value: "signup-button",
+					website: "your-website-id",
+					url: "/",
+					hostname: "your-hostname",
+					language: "en-US",
+					screen: "1920x1080"
+				},
+				type: "event"
+			}
+			
+			*/
+      const event: UmamiTrackEvent = {
         payload: {
           ...commonFields,
-          event_name: eventType,
-          event_value: eventValue,
+          name: eventName,
+          data: eventValue,
         },
         type: "event",
       };
@@ -76,20 +93,22 @@ export function useUmamiPageTrack(
 					language: "en-US",
 					screen: "1920x1080",
 				},
-				type: "pageview"
+				type: "event"
 			}
  		*/
+
     const commonFields = umamiCtx.getEventPayloadFields();
-    if (!commonFields) {
+    if (commonFields === null) {
       throw new Error("Not initialized");
     }
-    const pageViewEvt: UmamiPageViewEvent = {
+
+    const pageViewEvt: UmamiTrackEvent = {
       payload: {
         ...commonFields,
         url: _pageUrl ? _pageUrl : pageUrl,
         referrer,
       },
-      type: "pageview",
+      type: "event",
     };
     return umamiCtx.track(pageViewEvt);
   }, []);
